@@ -20,7 +20,7 @@ for (i in 3:9){
   consumptiondata[,i]<-as.numeric(consumptiondata[,i])
 }
 
-#Creates a POSIXlt class objecgt and bind it to the data frame
+#Creates a POSIXlt class object
 datetimecol<-strptime(paste(consumptiondata[,"Date"],consumptiondata[,"Time"]),format="%Y-%m-%d %H:%M:%S")
 
 #Open a PNG Graphics Device
