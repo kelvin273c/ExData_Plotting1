@@ -31,7 +31,7 @@ png(plotfilename)
 par(mfrow=c(1,1))
 
 #plot two
-plot(datetimecol,consumptiondata[twodays,3],xlab='',ylab='Global Active Power (kilowatts)', type="l")
+plot(datetimecol,consumptiondata[,3],xlab='',ylab='Global Active Power (kilowatts)', type="l")
 
 #Close the png device
 dev.off()
