@@ -11,7 +11,7 @@ if (!file.exists(zipfilename)){
 
 #Read a subset of the large data file.
 #We only need 1/2/2007 and 2/2/2007
-consumptiondata<-subset(read.table('household_power_consumption.txt',header=FALSE ,na.strings="?",sep=";",col.names=c("Date","Time","Global_active_power","Global_reactive_power","Voltage","Global_intensity","Sub_metering_1","Sub_metering_2","Sub_metering_3")),Date == "1/2/2007" | Date == "2/2/2007")
+consumptiondata<-subset(read.table('household_power_consumption.txt',header=FALSE ,na.strings="?",sep=";",colClasses = "character",col.names=c("Date","Time","Global_active_power","Global_reactive_power","Voltage","Global_intensity","Sub_metering_1","Sub_metering_2","Sub_metering_3")),Date == "1/2/2007" | Date == "2/2/2007")
 
 #Change the class type of the data table columns
 consumptiondata[,"Date"]<-as.Date(consumptiondata[,"Date"],"%d/%m/%Y")
@@ -22,8 +22,6 @@ for (i in 3:9){
 
 #Creates a POSIXlt class objecgt and bind it to the data frame
 datetimecol<-strptime(paste(consumptiondata[,"Date"],consumptiondata[,"Time"]),format="%Y-%m-%d %H:%M:%S")
-twodays<-which(consumptiondata[,"Date"] == "2007-02-01" | consumptiondata[,"Date"] == "2007-02-02")
-consumptiondata<-cbind(consumptiondata,datetimecol)
 
 #Open a PNG Graphics Device
 plotfilename<-paste(getwd(),"plot1.png",sep="/")
@@ -33,7 +31,7 @@ png(plotfilename)
 par(mfrow=c(1,1))
 
 #plot one
-hist(consumptiondata[twodays,"Global_active_power"],col="red",xlab="Global Active Power (kilowatts)",ylab="Frequency", main="Global Active Power")
+hist(consumptiondata[,"Global_active_power"],col="red",xlab="Global Active Power (kilowatts)",ylab="Frequency", main="Global Active Power")
 
 #Close the png device
 dev.off()
